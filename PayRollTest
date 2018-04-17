@@ -1,0 +1,64 @@
+import java.text.DecimalFormat;
+import java.util.Scanner;
+public class payRollTest {
+
+   public static void main(String[] args) {
+       //System.out.println(" Payroll Application    ");
+       Payroll payroll = new Payroll();
+       Scanner kb = new Scanner(System.in);
+       //Variable declaration
+       int hours;
+       double payRate;
+       double wages;
+      
+       //Intialize employeeid array
+       int[] employeeID = {5658845, 4520125, 7895122,
+               8477541, 8451277, 1302850,
+               7580489
+       };
+       //Loop repeats for all 7 employees
+       for (int i = 0; i < 7; i++) {
+           //System.out.println("Employee :" + (i + 1) );
+           do {
+               //get the hours
+
+               System.out.println("Enter the hours worked by employee number " + employeeID[i]+":");
+               hours = Integer.parseInt(kb.nextLine());
+           }
+           while (hours < 0);
+          
+           payroll.setHours(i, hours);
+          
+           do {
+               //get the payrate
+               System.out.println("Enter the hourly pay rate for employee number :" + employeeID[i]+":" );
+               payRate = Double.parseDouble(kb.nextLine());
+              
+               //print error message if rate is < 6
+               if(payRate<6.00)
+                   System.out.println("ERROR: Enter 6.00 or greater for pay rate: ");
+              
+           }while (payRate < 6.00);
+          
+           payroll.setPayRate(i, payRate);
+           int empid = payroll.getEmployeeID(i);
+           wages = payroll.calculateGrossPay(empid);
+           payroll.setWages(i, wages);
+       }
+
+       //Cretae a instance of decimal format to display comma
+       //separated values
+       DecimalFormat df=new DecimalFormat("##,###.00");
+       //Display each employee's identification number
+       //and gross wages.
+
+       System.out.println("        PAYROLL DATA        ");
+       System.out.println("        =============       ");
+       for (int i = 0; i < 7; i++) {
+           System.out.println("\tEmployee ID: " + payroll.getEmployeeID(i));
+           System.out.println("\tGross pay: $" + df.format(payroll.getWages(i)));
+       }
+       //Exit program
+       System.exit(0);
+   }
+}
