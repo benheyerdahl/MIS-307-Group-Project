@@ -21,7 +21,7 @@ public class Employee
 
     // Instance Variables used in setEmployeePayroll() method.
     private String employeeId = "%03d";
-    private int weekNumber = 0;
+    
     private double hoursWorked = 1.0;
   
     private int terminate = 1000;
@@ -49,7 +49,7 @@ public class Employee
         double overTime = 0.0;
         
 
-        System.out.println("Please enter ACME employee ID, the week they worked (1 or 2), and the number of hours worked. This information should be entered in the order the names were entered. Enter 0 when you are done inputing information.");
+        System.out.println("Please enter ACME employee ID and the number of hours worked. This information should be entered in the order the names were entered. Enter 0 when you are done inputing information.");
 
                 totalHours = in.nextDouble();
         
