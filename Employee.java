@@ -23,7 +23,7 @@ public class Employee
     private String employeeId = "%03d";
     private int weekNumber = 0;
     private double hoursWorked = 1.0;
-    private double hoursWorked2 = 1.0;
+  
     private int terminate = 1000;
     private int i = 0;
 
@@ -47,7 +47,7 @@ public class Employee
         double totalPay = 0.0;
         double totalHours = 0.0;
         double overTime = 0.0;
-        double overTime2 = 0.0;
+        
 
         System.out.println("Please enter ACME employee ID, the week they worked (1 or 2), and the number of hours worked. This information should be entered in the order the names were entered. Enter 0 when you are done inputing information.");
 
@@ -65,45 +65,26 @@ public class Employee
 
 
             // Checks to see if an employee receives a 150% bonus on their payroll.
-            if(hoursWorked > 0 && hoursWorked <= 40 && hoursWorked2 > 0 && hoursWorked2 <= 40)
+            if(hoursWorked > 0 && hoursWorked <= 40)
             {
-                totalHours = hoursWorked + hoursWorked2;
+                totalHours = hoursWorked
                 hours.add(totalHours);
                 totalPay = totalHours * (eW.get(i));
                 tPay.add(totalPay);
                 hoursWorked = 0.0;
-                hoursWorked2 = 0.0;
+                
             }
-            else if(hoursWorked2 > 40 && hoursWorked > 0 && hoursWorked <= 40)
-            {
-                overTime2 = hoursWorked2 - 40;
-                totalHours = hoursWorked + hoursWorked2;
-                hours.add(totalHours);
-                totalPay = totalHours * (eW.get(i)) + (overTime2 * 1.5);
-                tPay.add(totalPay);
-                hoursWorked = 0.0;
-                hoursWorked2 = 0.0;
-            }
-            else if(hoursWorked > 40 && hoursWorked2 <= 40 && hoursWorked2 > 0)
+
+            else if(hoursWorked > 40)
             {
                 overTime = hoursWorked - 40;
+               
                 totalHours = hoursWorked + hoursWorked2;
                 hours.add(totalHours);
-                totalPay = totalHours * (eW.get(i)) + (overTime * 1.5);
+                totalPay = totalHours * (eW.get(i)) + (1.5 * (overTime));
                 tPay.add(totalPay);
                 hoursWorked = 0.0;
-                hoursWorked2 = 0.0;
-            }
-            else if(hoursWorked > 40 && hoursWorked2 > 40)
-            {
-                overTime = hoursWorked - 40;
-                overTime2 = hoursWorked2 - 40;
-                totalHours = hoursWorked + hoursWorked2;
-                hours.add(totalHours);
-                totalPay = totalHours * (eW.get(i)) + (1.5 * (overTime + overTime2));
-                tPay.add(totalPay);
-                hoursWorked = 0.0;
-                hoursWorked2 = 0.0;
+                
             }
             hours.add(totalHours);
             tPay.add(totalPay);
