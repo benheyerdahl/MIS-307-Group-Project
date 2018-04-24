@@ -9,100 +9,111 @@ import java.text.SimpleDateFormat;
  */
 public class Employee
 {
-    // ArrayLists that will implement return methods from the EmployeeRecord class.
-    ArrayList<String> eMp;
-    ArrayList<String> eMpL;
-    ArrayList<Double> eW;
+	// ArrayLists that will implement return methods from the EmployeeRecord class.
+	ArrayList<String> eMp;
+	ArrayList<String> eMpL;
+	ArrayList<Double> eW;
 
-    // ArrayLists used to store values in setEmployeePayroll() method.
-    static ArrayList<Integer> employeeIDs = new ArrayList<Integer>();
-    ArrayList<Double> hours = new ArrayList<Double>();
-    ArrayList<Double> tPay = new ArrayList<Double>();
+		static ArrayList<Integer> employeeIDs = new ArrayList<Integer>();
 
-    // Instance Variables used in setEmployeePayroll() method.
-    private String employeeId = "%03d";
-    
-    private double hoursWorked = 1.0;
-  
-    private int terminate = 1000;
-    private int i = 0;
+	// Instance Variables used in setEmployeePayroll() method.
 
 
-    Scanner in = new Scanner(System.in);
+	private int terminate = 1000;
+	private int i = 0;
 
-    /**
-     * A method that implements the EmployeeRecord class to prompt the user to enter information for the payroll of each ACME employee. The payroll for each employee is then displayed.
-     */
-    public void setEmployeePayroll()
-    {
-        // Constructs a new EmployeeRecord to implement classes from EmployeeRecord class.
-        employeeData e = new employeeData();
-        e.setEmployeeInfo();
+		// ArrayLists used to store values in setEmployeePayroll() method.
 
-        eMp = e.getEmployeeArrayList();
-        eMpL = e.getEmployeeLastArrayList();
-        eW = e.getWageArrayList();
+		ArrayList<Double> hours = new ArrayList<Double>();
+		ArrayList<Double> tPay = new ArrayList<Double>(); 
+		
+				// Local variables used in this method.
+		double totalPay;
+		double totalHours = 0;
+		double overTime;
+		double hoursWorked = 0.0;
+		int eID;
 
-        // Local variables used in this method.
-        double totalPay = 0.0;
-        double totalHours = 0.0;
-        double overTime = 0.0;
-        
+	Scanner in = new Scanner(System.in);
 
-        System.out.println("Please enter ACME employee ID and the number of hours worked. This information should be entered in the order the names were entered. Enter 0 when you are done inputing information.");
+	/**
+	 * A method that implements the EmployeeRecord class to prompt the user to enter information for the payroll of each ACME employee. The payroll for each employee is then displayed.
+	 */
+	public void setEmployeePayroll()
+	{
+		
+		
+		
 
-                totalHours = in.nextDouble();
-        
-        while(in.nextInt() != 0)
-        {
-    
-            terminate = in.nextInt();
-            if(terminate == 0)
-            {
-                break;
-            }
+		
+		// Constructs a new EmployeeRecord to implement classes from EmployeeRecord class.
+		employeeData e = new employeeData();
+		e.setEmployeeInfo();
+
+		eMp = e.getEmployeeArrayList();
+		eMpL = e.getEmployeeLastArrayList();
+		eW = e.getWageArrayList();
+
+
+		System.out.println("Please enter ACME employee ID and the number of hours worked. This information should be entered in the order the names were entered. Enter 0 when you are done inputing information.");
+		eID = in.nextInt();
+		System.out.println("Enter hours worked:");
+		hoursWorked = in.nextDouble();
+
+
+		while(terminate != 0)
+		{
+
+			terminate = in.nextInt();
+			if(terminate == 0)
+			{
+				break;
+			}
 
 
 
-            // Checks to see if an employee receives a 150% bonus on their payroll.
-            if(hoursWorked > 0 && hoursWorked <= 40)
-            {
-                totalHours = hoursWorked
-                hours.add(totalHours);
-                totalPay = totalHours * (eW.get(i));
-                tPay.add(totalPay);
-                hoursWorked = 0.0;
-                
-            }
+			// Checks to see if an employee receives a 150% bonus on their payroll.
+			if(hoursWorked > 0 && hoursWorked <= 40)
+			{
+				
+				hours.add(hoursWorked);
+				totalPay = hoursWorked * (eW.get(i));
+				tPay.add(totalPay);
 
-            else if(hoursWorked > 40)
-            {
-                overTime = hoursWorked - 40;
-               
-                totalHours = hoursWorked + hoursWorked2;
-                hours.add(totalHours);
-                totalPay = totalHours * (eW.get(i)) + (1.5 * (overTime));
-                tPay.add(totalPay);
-                hoursWorked = 0.0;
-                
-            }
-            hours.add(totalHours);
-            tPay.add(totalPay);
 
-            i = terminate;
-        }
+			}
 
-        // Constructs a new date format for the date of the payroll.
-        DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date d = new Date();
+			else if(hoursWorked > 40)
+			{
+				overTime = hoursWorked - 40;
 
-        // Gets current date and time for payroll.
-        System.out.println("ACME Payroll run on " + format.format(d));
-        System.out.println(employeeIDs.get(1) + eMp.get(1) + eMpL.get(1) + totalHours + totalPay + eW.get(0));
-        System.out.println("Employee Number  |  Employee Name    |  Hours Worked  |  Total Pay");
-        for(int i = 0; i < e.getEmployeeArrayList().size(); i++)
-        {
-            System.out.println(employeeIDs.get(i) + "              | " + eMp.get(i) + " " + eMpL.get(i) + "        | " + hours.get(i) + "           | " + tPay.get(i));
-        }
-    }
+				totalHours = hoursWorked + overTime;
+				hours.add(totalHours);
+				totalPay = totalHours * (eW.get(i)) + (1.5 * (overTime));
+				tPay.add(totalPay);
+
+
+			}
+
+			i = terminate;
+		}
+
+		// Constructs a new date format for the date of the payroll.
+		DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date d = new Date();
+
+		// Gets current date and time for payroll.
+		System.out.println("ACME Payroll run on " + format.format(d));
+		
+		//test print lines in attempt to debug why variables arent going into array
+		System.out.println(totalHours );
+		System.out.println(eID);
+		System.out.println(employeeIDs.get(eID - 1) + " "  + " " + eMp.get(1) + eMpL.get(1) + hoursWorked + hours + tPay + eW.get(1));
+		
+		
+		System.out.println("Employee Number  |  Employee Name    |  Hours Worked  |  Total Pay");
+
+		System.out.println(employeeIDs.get(eID - 1) + "                | " + eMp.get(i) + " " + eMpL.get(i) + "        | ");
+
+	}
 }
