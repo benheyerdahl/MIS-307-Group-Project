@@ -37,6 +37,7 @@ public class employeeData
                 {
                 break;
                 }
+                
                 employeeLastName = in.next();
                 ssnID = in.next();
                 wage = in.nextDouble();
@@ -47,13 +48,17 @@ public class employeeData
                 employeesLast.add(employeeLastName);
                 socNums.add(ssnID);
                 wages.add(wage);
+                employeeID++;
+                
 
                 System.out.println("Employee ID  |  Employee Name        |  SSN          |  Wage");
                 for(int i = 0; i < employees.size(); i++)
-                {
+                { 
+                	
                     System.out.printf(employeeIDs.get(i) + "          | " + employees.get(i) + " " + employeesLast.get(i) + "              | " + socNums.get(i) + "          | " + "%1.2f",wages.get(i));
                     System.out.println();
-                    employeeID++;
+                    
+                   
                 }
         }
     }
