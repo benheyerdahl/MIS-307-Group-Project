@@ -10,30 +10,23 @@ import java.text.SimpleDateFormat;
 public class Employee
 {
 	// ArrayLists that will implement return methods from the EmployeeRecord class.
-	ArrayList<String> eMp;
-	ArrayList<String> eMpL;
-	ArrayList<Double> eW;
+	ArrayList<String> employeeFirst;
+	ArrayList<String> employeeLast;
+	ArrayList<Double> employeeWage;
 
-		static ArrayList<Integer> employeeIDs = new ArrayList<Integer>();
+
+	// ArrayLists used to store values in setEmployeePayroll() method.
+	static ArrayList<Integer> employeeIDs = new ArrayList<Integer>();
+	ArrayList<Double> hours = new ArrayList<Double>();
+	ArrayList<Double> tPay = new ArrayList<Double>(); 
 
 	// Instance Variables used in setEmployeePayroll() method.
 
 
 	private int terminate = 1000;
 	private int i = 0;
-
-		// ArrayLists used to store values in setEmployeePayroll() method.
-
-		ArrayList<Double> hours = new ArrayList<Double>();
-		ArrayList<Double> tPay = new ArrayList<Double>(); 
-		
-				// Local variables used in this method.
-		double totalPay;
-		double totalHours = 0;
-		double overTime;
-		double hoursWorked = 0.0;
-		int eID;
-
+	private double hoursWorked = 0.0;
+	int counter = 0;
 	Scanner in = new Scanner(System.in);
 
 	/**
@@ -41,79 +34,92 @@ public class Employee
 	 */
 	public void setEmployeePayroll()
 	{
-		
-		
-		
 
-		
 		// Constructs a new EmployeeRecord to implement classes from EmployeeRecord class.
 		employeeData e = new employeeData();
 		e.setEmployeeInfo();
 
-		eMp = e.getEmployeeArrayList();
-		eMpL = e.getEmployeeLastArrayList();
-		eW = e.getWageArrayList();
+
+		employeeFirst = e.getEmployeeArrayList();
+		employeeLast = e.getEmployeeLastArrayList();
+		employeeWage = e.getWageArrayList();
 
 
-		System.out.println("Please enter ACME employee ID and the number of hours worked. This information should be entered in the order the names were entered. Enter 0 when you are done inputing information.");
+		// Local variables used in this method.
+		double totalPay = 0.0;
+		double totalHours = 0.0;
+		double overTimeHours = 0.0;
+		int eID = 0;
+
+	while(eID != -1) {
+
+		System.out.println("Please enter employee ID: . Enter -1 for employee ID and 0 for hours when you are done inputing information.");
 		eID = in.nextInt();
+		i = eID;
 		System.out.println("Enter hours worked:");
 		hoursWorked = in.nextDouble();
 
-
-		while(terminate != 0)
+		if(hoursWorked != 0 || eID == -1)
 		{
 
-			terminate = in.nextInt();
-			if(terminate == 0)
-			{
-				break;
-			}
 
-
-
-			// Checks to see if an employee receives a 150% bonus on their payroll.
+			// Checks to see if an employee earned overtime
 			if(hoursWorked > 0 && hoursWorked <= 40)
 			{
-				
+
 				hours.add(hoursWorked);
-				totalPay = hoursWorked * (eW.get(i));
+				totalPay = hoursWorked * (employeeWage.get(i));
 				tPay.add(totalPay);
-
-
+				totalPay = 0;
+				hoursWorked = 0;
+				
 			}
 
-			else if(hoursWorked > 40)
+			if(hoursWorked > 40)
 			{
-				overTime = hoursWorked - 40;
-
-				totalHours = hoursWorked + overTime;
-				hours.add(totalHours);
-				totalPay = totalHours * (eW.get(i)) + (1.5 * (overTime));
+				overTimeHours = hoursWorked - 40;
+				
+				totalHours = 40 + overTimeHours;
+				hours.add(hoursWorked);
+				totalPay = ((employeeWage.get(i)) * 40) + (1.5 * (employeeWage.get(i)) * (overTimeHours));
 				tPay.add(totalPay);
-
-
+				totalPay = 0;
+				hoursWorked = 0;
+				
 			}
-
-			i = terminate;
+		}
+		else {
+			System.out.println("Shutting down. Have a good day!");
+			System.exit(0);
 		}
 
-		// Constructs a new date format for the date of the payroll.
 		DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date d = new Date();
 
-		// Gets current date and time for payroll.
 		System.out.println("ACME Payroll run on " + format.format(d));
-		
-		//test print lines in attempt to debug why variables arent going into array
-		System.out.println(totalHours );
-		System.out.println(eID);
-		System.out.println(employeeIDs.get(eID - 1) + " "  + " " + eMp.get(1) + eMpL.get(1) + hoursWorked + hours + tPay + eW.get(1));
-		
-		
+		i = eID;
+		System.out.println();
 		System.out.println("Employee Number  |  Employee Name    |  Hours Worked  |  Total Pay");
+		System.out.println(employeeIDs.get(eID) + "                | " + employeeFirst.get(i) + " " + employeeLast.get(i) + "        | " + hours.get(counter) + "           | " + tPay.get(counter));
+		counter++;
+	
+/**
+ * Variable tester for arraylists
+ * 
+ * System.out.println(counter + " counter");
+		System.out.println(tPay + " total pay");
+		System.out.println(hours + " total hours");
+		System.out.println(employeeIDs + " emp IDs");
+		System.out.println(employeeFirst + " first name");
+		System.out.println(employeeLast + " last name");
+		
 
-		System.out.println(employeeIDs.get(eID - 1) + "                | " + eMp.get(i) + " " + eMpL.get(i) + "        | ");
+ */
+		
 
 	}
+
+	}
+
+
 }
