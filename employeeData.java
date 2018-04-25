@@ -15,11 +15,12 @@ public class employeeData
 
     Scanner in = new Scanner(System.in);
 
-    private Integer employeeID = 1;
+    private Integer employeeID = 0;
     private String employeeName = " ";
     private String employeeLastName = " ";
     private String ssnID = " ";
     private double wage = 0.0;
+    
 
     /**
      * Method to input employee data
@@ -27,7 +28,8 @@ public class employeeData
      */
     public void setEmployeeInfo()
     {
-        System.out.println("Enter each employee name, employee SSN, each employee wage rate. Press Q to quit.");
+    	System.out.println("Welcome to 307 Payroll Software v1.12/n");
+        System.out.println("Enter new employee name. Press Q to save and quit when finished entering data.");
 
         while(!employeeName.equalsIgnoreCase("Q"))
         {
@@ -39,11 +41,13 @@ public class employeeData
                 }
                 
                 employeeLastName = in.next();
+            	System.out.println("Please enter employee SSN: ");
                 ssnID = in.next();
+            	System.out.println("Please enter employee pay rate: ");
                 wage = in.nextDouble();
 
-                employeeIDs.add(employeeID);
                 Employee.employeeIDs.add(employeeID);
+                employeeIDs.add(employeeID);
                 employees.add(employeeName);
                 employeesLast.add(employeeLastName);
                 socNums.add(ssnID);
@@ -60,6 +64,7 @@ public class employeeData
                     
                    
                 }
+                
         }
     }
 
